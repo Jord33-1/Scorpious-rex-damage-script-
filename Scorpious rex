@@ -1,0 +1,22 @@
+local hitbox = script.Parent
+local damageAmount = 100
+local poisonDamage = 2
+local poisonDuration = 10
+local poisonInterval = 2
+
+hitbox.Touched:Connect(function(hit)
+    local character = hit.Parent
+    local humanoid = character:FindFirstChild("Humanoid")
+
+    if humanoid then
+        humanoid:TakeDamage(damageAmount)
+
+        local poisonTime = 0
+
+        while poisonTime < poisonDuration do
+            humanoid:TakeDamage(poisonDamage)
+            poisonTime = poisonTime + poisonInterval
+            wait(poisonInterval)
+        end
+    end
+end)
