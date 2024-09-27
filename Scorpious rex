@@ -7,12 +7,19 @@ local poisonInterval = 2
 hitbox.Touched:Connect(function(hit)
     local character = hit.Parent
     local humanoid = character:FindFirstChild("Humanoid")
+    local player = game.Players:GetPlayerFromCharacter(character)
 
-    if humanoid then
+    if humanoid and player then
         humanoid:TakeDamage(damageAmount)
 
-        local poisonTime = 0
+        local blur = Instance.new("BlurEffect")
+        blur.Size = 24
+        blur.Parent = game.Workspace.CurrentCamera
 
+        wait(5)
+        blur:Destroy()
+
+        local poisonTime = 0
         while poisonTime < poisonDuration do
             humanoid:TakeDamage(poisonDamage)
             poisonTime = poisonTime + poisonInterval
